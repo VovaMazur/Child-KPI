@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Assessing other goals
+{% endblock %}
+
+{% block navbar %}
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('home_page') }}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('clean_page') }}">Clean</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('school_page') }}">School</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('sport_page') }}">Sport</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('other_page') }}">Other <span class="sr-only">(current)</span> </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('stat_page') }}"><b>Stat</b></a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <br>
+        <h1>
+            Let's assess your other achievements for the day
+        </h1>
+        <br>
+
+        <form method="POST" style="color:black">
+            <div class="mb-1">
+                {{ form.hidden_tag() }}
+
+                {{ form.number.label() }}
+                {{ form.number(class="form-control") }}
+                <br>
+                {{ form.comment.label() }}
+                {{ form.comment(class="form-control form-control-sm") }}
+                <br>
+                {{ form.submit(class="btn btn-small btn-primary") }}
+                <br>
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

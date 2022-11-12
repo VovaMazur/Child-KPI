@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Monthly Stat
+{% endblock %}
+
+{% block navbar %}
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('home_page') }}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('clean_page') }}">Clean</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('school_page') }}">School</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('sport_page') }}">Sport</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('other_page') }}">Other</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('stat_page') }}"><b>Stat</b> <span class="sr-only">(current)</span> </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="m-md-3">
+        <br>
+        <h4>Monthly results:</h4>
+        <br>
+
+        <table class="table table-striped table-sm text-center bg-dark" style="color:white; font-weight:normal">
+            <thead class="thead-light">
+                <tr>
+                   <th scope="col">Date</th>
+                   <th scope="col">Clean(%)</th>
+                   <th scope="col">School(%)</th>
+                   <th scope="col">Sport(%)</th>
+                   <th scope="col">Other(%)</th>
+                   <th scope="col">Amount(uah)</th>
+                   <th scope="col">Completed</th>
+                   <th scope="col">Approved</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.clean }}</td>
+                    <td>{{ item.sch }}</td>
+                    <td>{{ item.sport }}</td>
+                    <td>{{ item.other }}</td>
+                    {% if item.is_approved %}
+                        <td style="color:lawngreen">{{ "%.2f"|format(item.amount) }}</td>
+                    {% else %}
+                        <td>{{ "%.2f"|format(item.amount) }}</td>
+                    {% endif %}
+                    <td>{{ item.is_done }}</td>
+                    <td>{{ item.is_approved }}</td>
+                </tr>
+                {% endfor %}
+                <tr style="font-weight:bold">
+                    <td>{{ stat[0] }}</td>
+                    <td>{{ stat[1] }}</td>
+                    <td>{{ stat[2] }}</td>
+                    <td>{{ stat[3] }}</td>
+                    <td>{{ stat[4] }}</td>
+                    <td>{{ "%.2f"|format(stat[5]) }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
