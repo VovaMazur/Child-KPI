@@ -46,5 +46,5 @@ class Result(db.Model):
     other_comm = db.Column(db.String(30))
     is_done = db.Column(db.Boolean, nullable=False, default=False)
     is_approved = db.Column(db.Boolean, nullable=False, default=False)
-    amount = db.Column(db.Numeric())
+    amount = db.Column(db.Numeric(), default=0)
     comments = db.Column(db.String(140))

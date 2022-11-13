@@ -8,14 +8,9 @@ from datetime import date as dt, timedelta as td
 import calendar
 
 
-active_date = dt.today()
-current_rates = [100, 100, 100, 100]
-current_threshold = [100, 50, 75, 0]
-
-cur_row = Result.query.filter_by(date=active_date).first()
-if not cur_row:
-    cur_row = Result(date=active_date)
-    db.session.add(cur_row)
+def create_empty_row(date):
+    row = Result(date=date)
+    db.session.add(row)
     db.session.commit()
 
 
@@ -62,6 +57,15 @@ def calculate_monthly_income(month):
     return fees
 
 
+
+active_date = dt.today()
+current_rates = [100, 100, 100, 100]
+current_threshold = [100, 50, 75, 0]
+cur_row = Result.query.filter_by(date=active_date).first()
+if not cur_row:
+    create_empty_row(active_date)
+
+
 @app.route("/")
 def intro_page():
     return render_template('intro.html')
@@ -84,8 +88,8 @@ def home_page():
     cur_row = Result.query.filter_by(date=active_date).first()
 
     if not cur_row:
-        flash('No records for the selected day. Returning to the today.', category='danger')
-        active_date = dt.today()
+        create_empty_row(date=active_date)
+        flash('No records found. Empty row is added.', category='success')
         return redirect(url_for('home_page'))
 
     if current_user.is_parent:
@@ -191,7 +195,7 @@ def sport_page():
 
         if form.validate_on_submit():
             cur_row.sport = form.number.data
-            cur_row.sport_type = form.sport.data if form.number.data > 0 else None
+            cur_row.sport_type = form.sport.data if int(form.number.data) > 0 else None
             cur_row.sport_comm = None if form.comment.data == '' else form.comment.data
             cur_row.amount = calculate_daily_fee([cur_row.clean, cur_row.sch, cur_row.sport, cur_row.other])
             try:
