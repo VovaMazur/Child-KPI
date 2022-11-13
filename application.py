@@ -1,9 +1,4 @@
-from flask import Flask
-application = Flask(__name__)
+from childkpi import application
 
-@application.route('/')
-def start():
-    return 'Hello'
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     application.run()

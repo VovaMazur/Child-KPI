@@ -2,7 +2,7 @@
 creds = {
     'user': 'postgres',
     'pass': 'B7g8Fk4U',
-    'host': 'database-1.czzjq785ipj6.eu-west-1.rds.amazonaws.com',
+    'host': 'child-kpi-db.czzjq785ipj6.eu-west-1.rds.amazonaws.com',
     'port': 5432,
     'dbname': 'childkpis'
 }
