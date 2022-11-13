@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request
-from childkpi import app
+from childkpi import application
 from childkpi import db
 from childkpi.models import User, Result
 from childkpi.forms import RegisterForm, LoginForm, BinaryAnswerForm, NumberAnswerForm, SportAnswerForm, DatePicker
@@ -66,12 +66,12 @@ if not cur_row:
     create_empty_row(active_date)
 
 
-@app.route("/")
+@application.route("/")
 def intro_page():
     return render_template('intro.html')
 
 
-@app.route("/home", methods=['GET', 'POST'])
+@application.route("/home", methods=['GET', 'POST'])
 @login_required
 def home_page():
     global active_date
@@ -132,7 +132,7 @@ def home_page():
                            thrs=current_threshold)
 
 
-@app.route("/clean", methods=['GET', 'POST'])
+@application.route("/clean", methods=['GET', 'POST'])
 @login_required
 def clean_page():
     cur_row = Result.query.filter_by(date=active_date).first()
@@ -159,7 +159,7 @@ def clean_page():
         return redirect(url_for('home_page'))
 
 
-@app.route("/school", methods=['GET', 'POST'])
+@application.route("/school", methods=['GET', 'POST'])
 @login_required
 def school_page():
     cur_row = Result.query.filter_by(date=active_date).first()
@@ -185,7 +185,7 @@ def school_page():
         return redirect(url_for('home_page'))
 
 
-@app.route("/sport", methods=['GET', 'POST'])
+@application.route("/sport", methods=['GET', 'POST'])
 @login_required
 def sport_page():
     cur_row = Result.query.filter_by(date=active_date).first()
@@ -212,7 +212,7 @@ def sport_page():
         return redirect(url_for('home_page'))
 
 
-@app.route("/other", methods=['GET', 'POST'])
+@application.route("/other", methods=['GET', 'POST'])
 @login_required
 def other_page():
     cur_row = Result.query.filter_by(date=active_date).first()
@@ -239,7 +239,7 @@ def other_page():
 
 
 
-@app.route("/register", methods=['GET', 'POST'])
+@application.route("/register", methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -258,7 +258,7 @@ def register_page():
     return render_template('register.html', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@application.route('/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
@@ -274,14 +274,14 @@ def login_page():
     return render_template('login.html', form=form)
 
 
-@app.route('/logout')
+@application.route('/logout')
 def logout_page():
     logout_user()
     flash('You have been logged out', category='info')
     return redirect(url_for('login_page'))
 
 
-@app.route("/stat")
+@application.route("/stat")
 def stat_page():
     c_year = active_date.year
     c_month = active_date.month
