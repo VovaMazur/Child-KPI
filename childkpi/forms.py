@@ -46,8 +46,3 @@ class SportAnswerForm(FlaskForm):
                                  ('Many', 'Many')])
     comment = StringField(label='Comments:', validators=[Length(max=30)])
     submit = SubmitField(label='Submit')
-
-
-class DatePicker(FlaskForm):
-    entrydate = DateField(label='Current date', format='%Y-%m-%d')
-    submit = SubmitField(label='GO')

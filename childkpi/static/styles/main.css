@@ -1,0 +1,48 @@
+body {
+    background: #579BB1;
+}
+
+.logo {
+    font-weight: bold;
+    color: white;
+}
+
+.logo-focus {
+    color: lawngreen;
+}
+
+.width-40 {
+    width: 100%;
+}
+@media screen and (min-width: 768px) {
+    .width-40 {
+        width: 40%;
+    }
+}
+
+.caption {
+    color:#d6cdae;
+}
+
+.rounded-angles {
+    border-radius: 0.5rem;
+}
+
+.btn-primary {
+    background-color: #205295;
+    border-color: #205295;
+}
+
+.table-style {
+    color: white;
+    font-size: 0.8rem;
+}
+
+.card-style {
+    font-size: 0.8rem;
+    border: 2px solid #343a40;
+}
+
+tbody#home_table:hover {
+    cursor: pointer;
+}

@@ -5,41 +5,43 @@
 {% endblock %}
 
 {% block navbar %}
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home_page') }}">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('clean_page') }}">Clean</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('school_page') }}">School</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('sport_page') }}">Sport</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('other_page') }}">Other</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('stat_page') }}"><b>Stat</b> <span class="sr-only">(current)</span> </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-        </li>
-    </ul>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav" style="margin-left: 11rem;">
+            <ul class="navbar-nav w-100 align-items-end justify-content-md-between">
+                <li class="nav-item ml-md-5">
+                    <a class="nav-link" href="{{ url_for('home_page') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('clean_page') }}">Clean</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('school_page') }}">School</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('sport_page') }}">Sport</a>
+                </li>
+                <li class="nav-item mr-md-5">
+                    <a class="nav-link" href="{{ url_for('other_page') }}">Other</a>
+                </li>
+                <li class="nav-item mx-md-5 active">
+                    <a class="nav-link" href="{{ url_for('stat_page') }}">Stat<span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item ml-md-5">
+                    <a class="nav-link" href="{{ url_for('logout_page') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
 {% endblock %}
 
 {% block content %}
-    <div class="m-md-3">
-        <br>
-        <h4>Monthly results:</h4>
-        <br>
+    <div class="p-1 p-md-3 mx-md-3 my-2 my-md-4 bg-dark rounded-angles">
+        <h5 class="caption">Monthly results:</h5>
 
-        <table class="table table-striped table-sm text-center bg-dark" style="color:white; font-weight:normal">
+        <table class="table mb-0 table-striped table-sm text-center table-style">
             <thead class="thead-light">
                 <tr>
                    <th scope="col">Date</th>
@@ -61,12 +63,12 @@
                     <td>{{ item.sport }}</td>
                     <td>{{ item.other }}</td>
                     {% if item.is_approved %}
-                        <td style="color:lawngreen">{{ "%.2f"|format(item.amount) }}</td>
+                        <td class="logo-focus">{{ "%.2f"|format(item.amount) }}</td>
                     {% else %}
                         <td>{{ "%.2f"|format(item.amount) }}</td>
                     {% endif %}
-                    <td>{{ item.is_done }}</td>
-                    <td>{{ item.is_approved }}</td>
+                    <td>{{ "No" if item.is_done == 0 else "Yes" }}</td>
+                    <td>{{ "No" if item.is_approved == 0 else "Yes" }}</td>
                 </tr>
                 {% endfor %}
                 <tr style="font-weight:bold">
@@ -82,4 +84,6 @@
             </tbody>
         </table>
     </div>
+
+
 {% endblock %}

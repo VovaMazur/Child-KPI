@@ -2,10 +2,11 @@ from flask import render_template, redirect, url_for, flash, request
 from childkpi import application
 from childkpi import db
 from childkpi.models import User, Result
-from childkpi.forms import RegisterForm, LoginForm, BinaryAnswerForm, NumberAnswerForm, SportAnswerForm, DatePicker
+from childkpi.forms import RegisterForm, LoginForm, BinaryAnswerForm, NumberAnswerForm, SportAnswerForm
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import date as dt, timedelta as td
 import calendar
+from datetime import datetime
 
 
 def create_empty_row(date):
@@ -57,7 +58,6 @@ def calculate_monthly_income(month):
     return fees
 
 
-
 active_date = dt.today()
 current_rates = [100, 100, 100, 100]
 current_threshold = [100, 50, 75, 0]
@@ -67,20 +67,10 @@ if not cur_row:
 
 
 @application.route("/")
-def intro_page():
-    return render_template('intro.html')
-
-
 @application.route("/home", methods=['GET', 'POST'])
 @login_required
 def home_page():
     global active_date
-    date_picker_form = DatePicker(entrydate=active_date)
-
-    if date_picker_form.validate_on_submit():
-        new_date = date_picker_form.entrydate.data
-        active_date = new_date
-        return redirect(url_for('home_page'))
 
     from_ = active_date - td(days=3)
     to_ = active_date + td(days=3)
@@ -92,30 +82,30 @@ def home_page():
         flash('No records found. Empty row is added.', category='success')
         return redirect(url_for('home_page'))
 
-    if current_user.is_parent:
-        if cur_row.is_done and not cur_row.is_approved:
-            butt = 'Approve'
+    if current_user.is_parent == 1:
+        if cur_row.is_done == 1 and cur_row.is_approved == 0:
+            butt = 'ok'
             but_design = 'btn btn-success btn-sm'
-        elif cur_row.is_done and cur_row.is_approved:
-            butt = 'Unapprove'
+        elif cur_row.is_done == 1 and cur_row.is_approved == 1:
+            butt = 'cancel'
             but_design = 'btn btn-info btn-sm'
         else:
             butt = but_design = ''
     else:
-        if not cur_row.is_done:
-            butt = 'Done'
+        if cur_row.is_done == 0:
+            butt = '+'
             but_design = 'btn btn-success btn-sm'
-        elif cur_row.is_done and not cur_row.is_approved:
-            butt = 'Undone'
+        elif cur_row.is_done == 1 and cur_row.is_approved == 0:
+            butt = '-'
             but_design = 'btn btn-info btn-sm'
         else:
             butt = but_design = ''
 
     if request.method == 'POST':
-        if current_user.is_parent:
-            cur_row.is_approved = not cur_row.is_approved
+        if current_user.is_parent == 1:
+            cur_row.is_approved = 0 if cur_row.is_approved == 1 else 1
         else:
-            cur_row.is_done = not cur_row.is_done
+            cur_row.is_done = 0 if cur_row.is_done == 1 else 1
         db.session.commit()
         flash('Record updated.')
         return redirect(url_for('home_page'))
@@ -123,13 +113,19 @@ def home_page():
     fees = calculate_monthly_income(active_date.month)
 
     return render_template('home.html',
-                           form=date_picker_form,
                            date=active_date,
                            items=recent_rows,
                            butt=butt,
                            but_design=but_design,
                            fees=fees,
                            thrs=current_threshold)
+
+
+@application.route("/date", methods=['POST'])
+def activate_date():
+    global active_date
+    active_date = datetime.strptime(request.form['datepicker'], '%Y-%m-%d').date()
+    return redirect(url_for('home_page'))
 
 
 @application.route("/clean", methods=['GET', 'POST'])

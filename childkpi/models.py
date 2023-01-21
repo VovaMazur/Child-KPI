@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
     pin_hash = db.Column(db.String(60), nullable=False)
-    is_parent = db.Column(db.Boolean, nullable=False, default=False)
+    is_parent = db.Column(db.Integer, nullable=False, default=0)
 
     @property
     def status(self):
@@ -44,7 +44,7 @@ class Result(db.Model):
     sport_comm = db.Column(db.String(30))
     other = db.Column(db.Integer, default=0)
     other_comm = db.Column(db.String(30))
-    is_done = db.Column(db.Boolean, nullable=False, default=False)
-    is_approved = db.Column(db.Boolean, nullable=False, default=False)
+    is_done = db.Column(db.Integer, nullable=False, default=0)
+    is_approved = db.Column(db.Integer, nullable=False, default=0)
     amount = db.Column(db.Numeric(), default=0)
     comments = db.Column(db.String(140))

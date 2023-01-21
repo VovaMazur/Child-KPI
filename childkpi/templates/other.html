@@ -5,54 +5,60 @@
 {% endblock %}
 
 {% block navbar %}
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('home_page') }}">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('clean_page') }}">Clean</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('school_page') }}">School</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('sport_page') }}">Sport</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('other_page') }}">Other <span class="sr-only">(current)</span> </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('stat_page') }}"><b>Stat</b></a>
-        </li>
-    </ul>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav" style="margin-left: 11rem;">
+            <ul class="navbar-nav w-100 align-items-end justify-content-md-between">
+                <li class="nav-item ml-md-5">
+                    <a class="nav-link" href="{{ url_for('home_page') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('clean_page') }}">Clean</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('school_page') }}">School</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('sport_page') }}">Sport</a>
+                </li>
+                <li class="nav-item mr-md-5 active">
+                    <a class="nav-link" href="{{ url_for('other_page') }}">Other<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item mx-md-5">
+                    <a class="nav-link" href="{{ url_for('stat_page') }}">Stat</a>
+                </li>
+
+                <li class="nav-item ml-md-5">
+                    <a class="nav-link" href="{{ url_for('logout_page') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
 {% endblock %}
 
 {% block content %}
 <body>
-    <div class="container">
-        <br>
-        <h1>
-            Let's assess your other achievements for the day
-        </h1>
-        <br>
+    <div class="container width-40 mt-3">
+            <h1>Assess your other achievements</h1>
 
-        <form method="POST" style="color:black">
-            <div class="mb-1">
+            <form method="POST" style="color:black;">
                 {{ form.hidden_tag() }}
 
+                <div>
                 {{ form.number.label() }}
                 {{ form.number(class="form-control") }}
-                <br>
+                </div>
+
+                <div class="mt-3">
                 {{ form.comment.label() }}
                 {{ form.comment(class="form-control form-control-sm") }}
-                <br>
+                </div>
+
+                <div class="mt-3">
                 {{ form.submit(class="btn btn-small btn-primary") }}
-                <br>
-            </div>
-        </form>
+                </div>
+            </form>
     </div>
 </body>
 {% endblock %}
