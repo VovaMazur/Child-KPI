@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav" style="margin-left: 11rem;">
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav w-100 align-items-end justify-content-md-between">
                 <li class="nav-item ml-md-5">
                     <a class="nav-link" href="{{ url_for('home_page') }}">Home</a>
@@ -23,14 +23,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('sport_page') }}">Sport</a>
                 </li>
-                <li class="nav-item mr-md-5">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('other_page') }}">Other</a>
                 </li>
-                <li class="nav-item mx-md-5">
+                <li class="nav-item mx-md-5 font-weight-bold">
                     <a class="nav-link" href="{{ url_for('stat_page') }}">Stat</a>
                 </li>
 
-                <li class="nav-item ml-md-5">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('logout_page') }}">Logout</a>
                 </li>
             </ul>
@@ -39,7 +39,7 @@
 
 {% block content %}
 <body>
-    <div class="container width-40 mt-3">
+    <div class="container mt-3">
             <h1>Assess your school achievements</h1>
 
             <form method="POST" style="color:black;">

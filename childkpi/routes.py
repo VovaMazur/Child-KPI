@@ -305,4 +305,4 @@ def stat_page():
 
     stat = ['Summary', round(av_clean), round(av_sch), round(av_sport), round(av_other), total]
 
-    return render_template('stat.html', items=rows, stat=stat)
+    return render_template('stat.html', items=rows, stat=stat, date=active_date)

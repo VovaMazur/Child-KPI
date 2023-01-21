@@ -7,6 +7,9 @@ aboveForm.addEventListener("change", () => {
 //change active date by clicking on the main table row
 const homeTable = document.getElementById("home_table");
 homeTable.addEventListener("click", (e) => {
-    aboveForm.firstElementChild.value = e.target.parentElement.firstElementChild.innerText;
-    aboveForm.submit();
-})
+    if (e.target.localName !== 'button') {
+        const clickedDate = e.target.parentElement.firstElementChild.innerText;
+        aboveForm.firstElementChild.value = aboveForm.firstElementChild.value.slice(0,8) + clickedDate;
+        aboveForm.submit();
+        }
+});

@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav" style="margin-left: 11rem;">
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav w-100 align-items-end justify-content-md-between">
                 <li class="nav-item ml-md-5">
                     <a class="nav-link" href="{{ url_for('home_page') }}">Home</a>
@@ -23,14 +23,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('sport_page') }}">Sport</a>
                 </li>
-                <li class="nav-item mr-md-5">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('other_page') }}">Other</a>
                 </li>
-                <li class="nav-item mx-md-5 active">
+                <li class="nav-item mx-md-5 active font-weight-bold">
                     <a class="nav-link" href="{{ url_for('stat_page') }}">Stat<span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item ml-md-5">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('logout_page') }}">Logout</a>
                 </li>
             </ul>
@@ -39,9 +39,9 @@
 
 {% block content %}
     <div class="p-1 p-md-3 mx-md-3 my-2 my-md-4 bg-dark rounded-angles">
-        <h5 class="caption">Monthly results:</h5>
+        <h5 class="caption">Monthly results, {{ date.strftime('%B-%y') }}:</h5>
 
-        <table class="table mb-0 table-striped table-sm text-center table-style">
+        <table class="table mb-0 table-sm text-center table-style">
             <thead class="thead-light">
                 <tr>
                    <th scope="col">Date</th>
@@ -57,11 +57,11 @@
             <tbody>
                 {% for item in items %}
                 <tr>
-                    <td>{{ item.date }}</td>
-                    <td>{{ item.clean }}</td>
-                    <td>{{ item.sch }}</td>
-                    <td>{{ item.sport }}</td>
-                    <td>{{ item.other }}</td>
+                    <td>{{ item.date.strftime('%d') }}</td>
+                    <td>{{ "-" if item.clean == 0 else item.clean }}</td>
+                    <td>{{ "-" if item.sch == 0 else item.sch }}</td>
+                    <td>{{ "-" if item.sport == 0 else item.sport }}</td>
+                    <td>{{ "-" if item.other == 0 else item.other }}</td>
                     {% if item.is_approved %}
                         <td class="logo-focus">{{ "%.2f"|format(item.amount) }}</td>
                     {% else %}

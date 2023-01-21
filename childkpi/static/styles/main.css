@@ -11,15 +11,6 @@ body {
     color: lawngreen;
 }
 
-.width-40 {
-    width: 100%;
-}
-@media screen and (min-width: 768px) {
-    .width-40 {
-        width: 40%;
-    }
-}
-
 .caption {
     color:#d6cdae;
 }
@@ -35,8 +26,15 @@ body {
 
 .table-style {
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
 }
+
+@media screen and (min-width: 768px) {
+    .table-style {
+        font-size: 0.8rem;
+    }
+}
+
 
 .card-style {
     font-size: 0.8rem;
